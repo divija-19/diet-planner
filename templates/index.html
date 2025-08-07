@@ -1,0 +1,71 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Diet Planner</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <h1>Diet Planner</h1>
+    <form method="POST" action="/">
+      <label for="age">Age</label>
+      <input type="number" id="age" name="age" min="1" max="120" required />
+
+      <label for="gender">Gender</label>
+      <select id="gender" name="gender" required>
+        <option value="">Select gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+
+      <label for="height">Height (cm)</label>
+      <input type="number" id="height" name="height" min="50" max="250" required />
+
+      <label for="weight">Weight (kg)</label>
+      <input type="number" id="weight" name="weight" min="20" max="300" required />
+
+      <label for="activity_level">Activity Level</label>
+      <select id="activity_level" name="activity_level" required>
+        <option value="">Select activity level</option>
+        <option value="sedentary">Sedentary</option>
+        <option value="light">Light</option>
+        <option value="moderate">Moderate</option>
+        <option value="active">Active</option>
+        <option value="very active">Very Active</option>
+      </select>
+
+      <label for="goal">Goal</label>
+      <select id="goal" name="goal" required>
+        <option value="">Select goal</option>
+        <option value="weight loss">Weight Loss</option>
+        <option value="maintain">Maintain</option>
+        <option value="weight gain">Weight Gain</option>
+      </select>
+
+      <input type="submit" value="Calculate Diet Plan" />
+    </form>
+
+    {% if nutrition %}
+    <div class="results">
+      <h2>Your Daily Nutrition Summary</h2>
+      <p>Calories needed: {{ nutrition.calories }} kcal</p>
+      <p>Proteins: {{ nutrition.protein }}g | Fats: {{ nutrition.fats }}g | Carbs: {{ nutrition.carbs }}g</p>
+
+      <h2>Suggested Meals for Your Goal</h2>
+      {% if meals %}
+      <ul>
+        {% for meal in meals %}
+          <li>{{ meal.name }} x{{ meal.count }} ({{ meal.calories * meal.count }} kcal, Protein: {{ meal.protein * meal.count }}g, Carbs: {{ meal.carbs * meal.count }}g, Fat: {{ meal.fat * meal.count }}g)</li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>No suitable meals found.</p>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>

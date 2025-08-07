@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diet Plan Result</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="summary-container">
+    <div class="nutrition-summary">
+      <h1>Your Daily Nutrition Summary</h1>
+      <div class="nutrients">
+        <div>
+          <strong>Calories needed:</strong> {{ calories }} kcal
+        </div>
+        <div>
+          <strong>Proteins:</strong> {{ protein }} g |
+          <strong>Fats:</strong> {{ fats }} g |
+          <strong>Carbs:</strong> {{ carbs }} g
+        </div>
+      </div>
+    </div>
+
+    <div class="meals-section">
+      <h2>Suggested Meals for your goal <span>({{ goal }})</span>:</h2>
+      <ul class="meals-list">
+        {% for meal in meals.values() %}
+        <li>
+          <div class="meal-title"><strong>{{ meal.name }}</strong> ×{{ meal.count }}</div>
+          <div class="meal-info">
+            <span class="calories">{{ meal.calories }} kcal</span>
+            <span>Protein: {{ meal.protein }}g</span>
+            <span>Carbs: {{ meal.carbs }}g</span>
+            <span>Fat: {{ meal.fat }}g</span>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="totals-card">
+      <h3>Totals:</h3>
+      <div>
+        <span><strong>Calories:</strong> {{ total_cal }} kcal</span><br>
+        <span><strong>Protein:</strong> {{ total_protein }} g</span><br>
+        <span><strong>Carbs:</strong> {{ total_carbs }} g</span><br>
+        <span><strong>Fat:</strong> {{ total_fat }} g</span>
+      </div>
+    </div>
+
+    <a class="try-again-btn" href="/">Try Again</a>
+  </div>
+</body>
+</html>
