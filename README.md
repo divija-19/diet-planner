@@ -37,5 +37,5 @@ This simple ML approach adds adaptability to the diet plan, making recommendatio
 
 ---
 
-## Project Structure
+
 
